@@ -10,6 +10,9 @@ bot = commands.Bot(command_prefix='!')
 bot.remove_command('help')
 bot.add_cog(music(bot))
 
+@bot.event
+async def on_ready():
+    await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
 
 # token = ""
 # with open("tokens.txt") as file:
