@@ -6,7 +6,7 @@ from discord.ext import commands
 # from dotenv import load_dotenv
 # load_dotenv()
 
-bot = commands.Bot(command_prefix='_')
+bot = commands.Bot(command_prefix='!')
 bot.remove_command('help')
 bot.add_cog(music(bot))
 

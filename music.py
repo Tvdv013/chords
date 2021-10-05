@@ -181,8 +181,6 @@ class music(commands.Cog):
         _pn : Moves the song to the top of the queue \U0001F4A5
         _r : removes song from queue at index given. \U0001F4A9
         _help : shows all the commands of the bot. \U0001F64F
-
-        Developer : Aman Prakash Jha \U0001F525
         ```
         """
         await ctx.send(help_message)
