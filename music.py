@@ -72,7 +72,7 @@ class music(commands.Cog):
             else:
                 await self.vc.move_to(self.music_queue[0][1])
 
-            await ctx.send(f""":arrow_forward: Playing **{self.music_queue[0][0]['title']}** -- requested by {self.music_queue[0][2]}""")
+            await ctx.send(f"""Playing **{self.music_queue[0][0]['title']}** requested by {self.music_queue[0][2]}""")
 
 
             self.vc.play(discord.FFmpegPCMAudio(
@@ -94,7 +94,7 @@ class music(commands.Cog):
             if type(song) == type(True):
                 await ctx.send("Could not download the song. Incorrect format try another keyword.")
             else:
-                await ctx.send(f""":headphones: **{song["title"]}** has been added to the queue by {ctx.author.mention}""")
+                await ctx.send(f"""**{song["title"]}** has been added to the queue by {ctx.author.mention}""")
                 self.music_queue.append(
                     [song, voice_channel, ctx.author.mention])
 
@@ -105,7 +105,7 @@ class music(commands.Cog):
     async def q(self, ctx):
         retval = ""
         for i in range(0, len(self.music_queue)):
-            retval += f"""{i+1}. **{self.music_queue[i][0]['title']}** -- added by {self.music_queue[i][2]}\n"""
+            retval += f"""{i+1}. **{self.music_queue[i][0]['title']}** added by {self.music_queue[i][2]}\n"""
 
         if retval != "":
             await ctx.send(retval)
@@ -115,7 +115,7 @@ class music(commands.Cog):
     @commands.command(name="s", help="Skips the current song being played")
     async def skip(self, ctx):
         if self.vc != "" and self.vc:
-            await ctx.send("""***Skipped current song !***""")
+            await ctx.send("""**Skipped current song**""")
             self.vc.stop()
             await self.play_music(ctx)
 
@@ -123,7 +123,7 @@ class music(commands.Cog):
     @commands.has_any_role('DJ','Moderator', 'GDSC Lead', 'Core Team')
     async def leave(self, ctx, *args):
         if self.vc.is_connected():
-            await ctx.send("""**Bye Bye **:slight_smile:""")
+            await ctx.send("""Bye :wave:""")
             await self.vc.disconnect(force=True)
 
     @commands.command(name="pn", help="Skips the queue and plays the current song!")
@@ -139,7 +139,7 @@ class music(commands.Cog):
             if type(song) == type(True):
                 await ctx.send("Could not download the song. Incorrect format try another keyword.")
             else:
-                await ctx.send(f""":headphones: **{song['title']}** has been added to the top of the queue by {ctx.author.mention}""")
+                await ctx.send(f"""**{song['title']}** has been added to the top of the queue by {ctx.author.mention}""")
 
                 self.music_queue.insert(
                     0,
@@ -167,7 +167,7 @@ class music(commands.Cog):
         elif(index>=len(self.music_queue)):
             await ctx.send("Wrong index. Indexed music not present in the queue")
         else:
-            await ctx.send(f""":x: Music at index {query} removed by {ctx.author.mention}""")
+            await ctx.send(f""":x: Song {query} removed from queue by {ctx.author.mention}""")
             self.music_queue.pop(index)
 
     @commands.command(name="help", help="Return all the possible commands")
