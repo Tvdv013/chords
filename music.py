@@ -174,6 +174,6 @@ class music(commands.Cog):
     async def help(self, ctx):
         help_message = discord.Embed(
     description="!p : Plays the song with search keyword following the command\n!s : Skips the currently playing music\n!q : Shows the music added in list/queue\n!l : Commands the bot to leave the voice channel\n!pn : Moves the song to the top of the queue\n!r : removes song from queue at index given.\n!help : shows all the commands of the bot.",
-    color=0xFF0000 #i added hex code of red u can add any like of blue
+    color=message.member.displayHexColor
 )
         await ctx.send(embed=help_message)
