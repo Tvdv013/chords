@@ -174,13 +174,13 @@ class music(commands.Cog):
     async def help(self, ctx):
         help_message = """
         ```
-        _p : Plays the song with search keyword following the command \U0001F3B5
-        _s : Skips the currently playing music \U0001F445
-        _q : Shows the music added in list/queue \U0001F440
-        _l : Commands the bot to leave the voice channel \U0001F634
-        _pn : Moves the song to the top of the queue \U0001F4A5
-        _r : removes song from queue at index given. \U0001F4A9
-        _help : shows all the commands of the bot. \U0001F64F
+        !p : Plays the song with search keyword following the command
+        !s : Skips the currently playing music
+        !q : Shows the music added in list/queue
+        !l : Commands the bot to leave the voice channel
+        !pn : Moves the song to the top of the queue
+        !r : removes song from queue at index given.
+        !help : shows all the commands of the bot.
         ```
         """
         await ctx.send(help_message)
