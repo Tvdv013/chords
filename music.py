@@ -172,15 +172,9 @@ class music(commands.Cog):
 
     @commands.command(name="help", help="Return all the possible commands")
     async def help(self, ctx):
-        help_message = """
-        ```
-        !p : Plays the song with search keyword following the command
-        !s : Skips the currently playing music
-        !q : Shows the music added in list/queue
-        !l : Commands the bot to leave the voice channel
-        !pn : Moves the song to the top of the queue
-        !r : removes song from queue at index given.
-        !help : shows all the commands of the bot.
-        ```
-        """
-        await ctx.send(help_message)
+        help_message = 
+        discord.Embed(
+    description="!p : Plays the song with search keyword following the command\n!s : Skips the currently playing music\n!q : Shows the music added in list/queue\n!l : Commands the bot to leave the voice channel\n!pn : Moves the song to the top of the queue\n!r : removes song from queue at index given.\n!help : shows all the commands of the bot.",
+    color=0xFF0000 #i added hex code of red u can add any like of blue
+)
+        await ctx.send(embed=help_message)
