@@ -12,8 +12,7 @@ bot.add_cog(music(bot))
 
 @bot.event
 async def on_ready():
-    await bot.change_presence(status=discord.Status.dnd)
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
+    await bot.change_presence(status=discord.Status.dnd, activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
 
 # token = ""
 # with open("tokens.txt") as file:
