@@ -112,6 +112,11 @@ class music(commands.Cog):
         else:
             await ctx.send("No music in queue")
 
+    @commands.command(name="cq", help="Clears the queue")
+    async def cq(self, ctx):
+        self.music_queue = []
+        await ctx.send("""***Queue cleared !***""")
+
     @commands.command(name="s", help="Skips the current song being played")
     async def skip(self, ctx):
         if self.vc != "" and self.vc:
@@ -150,6 +155,34 @@ class music(commands.Cog):
                 if self.is_playing == False or (self.vc == "" or not self.vc.is_connected() or self.vc == None):
                     await self.play_music(ctx)
 
+        """Pause the currently playing song."""
+    @commands.command(name="pause", help="Pause the currently playing song")
+    @commands.has_any_role('DJ', 'Moderator', 'GDSC Lead', 'Core Team')
+    async def pause(self, ctx):
+        vc = ctx.voice_client
+
+        if not vc or not vc.is_playing():
+            return await ctx.send('I am currently playing nothing!', delete_after=20)
+        elif vc.is_paused():
+            return
+
+        vc.pause()
+        await ctx.send(f'{ctx.author.mention} Paused the song!')
+
+        """Resume the currently playing song."""
+    @commands.command(name="resume", help="Resume the currently playing song")
+    @commands.has_any_role('DJ', 'Moderator', 'GDSC Lead', 'Core Team')
+    async def resume(self, ctx):
+        vc = ctx.voice_client
+
+        if not vc or vc.is_playing():
+            return await ctx.send('I am already playing a song!', delete_after=20)
+        elif not vc.is_paused():
+            return
+
+        vc.resume()
+        await ctx.send(f'{ctx.author.mention} Resumed the song!')
+
     @commands.command(name="r", help="Removes the song indexed in the queue")
     @commands.has_any_role('DJ','Moderator', 'GDSC Lead', 'Core Team')
     async def remove(self, ctx, *args):
@@ -173,6 +206,15 @@ class music(commands.Cog):
     @commands.command(name="help", help="Return all the possible commands")
     async def help(self, ctx):
         help_message = discord.Embed(
-    description="**!p:** Plays the song with search keyword following the command\n**!s:** Skips the currently playing music\n**!q:** Shows the music added in list/queue\n**!l:** Commands the bot to leave the voice channel\n**!pn:** Moves the song to the top of the queue\n**!r:** removes song from queue at index given\n**!help:** shows all the commands of the bot"
+    description="""**!p:** Plays the song with search keyword following the command\n
+    **!pn:** Moves the song to the top of the queue\n
+    **!pause**: Pause the currently playing song\n
+    **!resume**: Resume the currently playing song\n
+    **!q:** Shows the music added in list/queue\n
+    **!cq**: Clears the queue\n
+    **!s:** Skips the currently playing music\n
+    **!r:** removes song from queue at index given\n
+    **!l:** Commands the bot to leave the voice channel\n
+    **!help:** shows all the commands of the bot"""
 )
         await ctx.send(embed=help_message)
