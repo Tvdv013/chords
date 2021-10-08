@@ -75,7 +75,7 @@ class Music(commands.Cog):
             else:
                 await self.vc.move_to(self.music_queue[0][1])
 
-            await ctx.send(f""":arrow_forward: Playing **{self.music_queue[0][0]['title']}** -- requested by {self.music_queue[0][2]}""")
+            await ctx.send(f"""Playing **{self.music_queue[0][0]['title']}** requested by {self.music_queue[0][2]}""")
 
             self.vc.play(discord.FFmpegPCMAudio(
                 m_url, **self.FFMPEG_OPTIONS), after=lambda e: self.play_next())
@@ -96,7 +96,7 @@ class Music(commands.Cog):
             if type(song) == type(True):
                 await ctx.send("Could not download the song. Incorrect format try another keyword.")
             else:
-                await ctx.send(f""":headphones: **{song["title"]}** has been added to the queue by {ctx.author.mention}""")
+                await ctx.send(f"""**{song["title"]}** has been added to the queue by {ctx.author.mention}""")
                 self.music_queue.append(
                     [song, voice_channel, ctx.author.mention])
 
@@ -118,17 +118,17 @@ class Music(commands.Cog):
     @commands.command(name="cq", help="Clears the queue", aliases=['clear'])
     async def cq(self, ctx):
         self.music_queue = []
-        await ctx.send("""***Queue cleared !***""")
+        await ctx.send("""**Queue cleared**""")
 
     @commands.command(name="shuffle", help="Shuffles the queue")
     async def shuffle(self, ctx):
         shuffle(self.music_queue)
-        await ctx.send("""***Queue shuffled !***""")
+        await ctx.send("""**Queue shuffled**""")
 
     @commands.command(name="s", help="Skips the current song being played", aliases=['skip'])
     async def skip(self, ctx):
         if self.vc != "" and self.vc:
-            await ctx.send("""***Skipped current song !***""")
+            await ctx.send("""**Skipped current song**""")
             self.skip_votes = set()
             self.vc.stop()
             await self.play_music(ctx)
@@ -141,7 +141,7 @@ class Music(commands.Cog):
         self.skip_votes.add(ctx.author.id)
         votes = len(self.skip_votes)
         if votes >= num_members / 2:
-            await ctx.send(f"Vote passed by majority ({votes}/{num_members}).")
+            await ctx.send(f"Vote passed by majority ({votes}/{num_members})")
             await self.skip(ctx)
         
    
@@ -150,10 +150,10 @@ class Music(commands.Cog):
     @commands.has_any_role('DJ', 'Moderator', 'GDSC Lead', 'Core Team')
     async def leave(self, ctx, *args):
         if self.vc.is_connected():
-            await ctx.send("""**Bye Bye **:slight_smile:""")
+            await ctx.send("""Bye :wave:""")
             await self.vc.disconnect(force=True)
 
-    @commands.command(name="pn", help="Skips the queue and plays the current song!")
+    @commands.command(name="pn", help="Skips the queue and plays the current song")
     @commands.has_any_role('DJ', 'Moderator', 'GDSC Lead', 'Core Team')
     async def playnext(self, ctx, *args):
         query = " ".join(args)
@@ -166,7 +166,7 @@ class Music(commands.Cog):
             if type(song) == type(True):
                 await ctx.send("Could not download the song. Incorrect format try another keyword.")
             else:
-                await ctx.send(f""":headphones: **{song['title']}** has been added to the top of the queue by {ctx.author.mention}""")
+                await ctx.send(f"""**{song['title']}** has been added to the top of the queue by {ctx.author.mention}""")
 
                 self.music_queue.insert(
                     0,
@@ -189,7 +189,7 @@ class Music(commands.Cog):
             return
 
         vc.pause()
-        await ctx.send(f':pause_button:  {ctx.author.mention} Paused the song!')
+        await ctx.send(f'{ctx.author.mention} Paused the song')
 
     """Resume the currently playing song."""
     @commands.command(name="resume", help="Resume the currently playing song")
@@ -203,7 +203,7 @@ class Music(commands.Cog):
             return
 
         vc.resume()
-        await ctx.send(f':play_pause:  {ctx.author.mention} Resumed the song!')
+        await ctx.send(f'{ctx.author.mention} Resumed the song')
 
     @commands.command(name="r", help="Removes the song indexed in the queue", aliases=['remove'])
     @commands.has_any_role('DJ', 'Moderator', 'GDSC Lead', 'Core Team')
@@ -222,27 +222,39 @@ class Music(commands.Cog):
         elif(index >= len(self.music_queue)):
             await ctx.send("Wrong index. Indexed music not present in the queue")
         else:
-            await ctx.send(f""":x: Music at index {query} removed by {ctx.author.mention}""")
+            await ctx.send(f""":x: Song {query} removed from queue by {ctx.author.mention}""")
             self.music_queue.pop(index)
 
     @commands.command(name="help", help="Return all the possible commands", aliases=['h'])
     async def help(self, ctx):
-        help_message = """
-        ```
-        _p, _play : Plays the song with search keyword following the command \U0001F3B5
-        _pn : Moves the song to the top of the queue \U0001F4A5
-        _pause : Pause the currently playing song
-        _resume : Resume the currently playing song
-        _q, _queue : Shows the music added in list/queue \U0001F440
-        _cq _clear: Clears the entire queue of songs.
-        _shuffle: Shuffles the entire queue of songs.
-        _s, _skip : Skips the currently playing music \U0001F445
-        _r, _remove : removes song from queue at index given. \U0001F4A9
-        _vs, _voteskip : Initiates voting from the voice members to skip a song.
-        _l, _leave : Commands the bot to leave the voice channel \U0001F634
-        _h, _help : shows all the commands of the bot. \U0001F64F
+        help_message = discord.Embed(
+    description="""**!p**, **!play:** Plays the song with search keyword following the command\n
+        **!pn:** Moves the song to the top of the queue\n
+        **!pause:** Pause the currently playing song\n
+        **!resume:** Resume the currently playing song\n
+        **!q**, **!queue:** Shows the music added in list/queue\n
+        **!cq**, !clear:** Clears the entire queue of songs\n
+        **!shuffle:** Shuffles the entire queue of songs\n
+        **!s**, **!skip:** Skips the currently playing music\n
+        **!r**, **!remove:** removes song from queue at index given\n
+        **!vs**, **!voteskip:** Initiates voting from the voice members to skip a song\n
+        **!l**, **!leave:** Commands the bot to leave the voice channel\n
+        **!h**, **!help:** shows all the commands of the bot"""
+)
+        await ctx.send(embed=help_message)
 
-        Developer : Aman Prakash Jha \U0001F525
-        ```
-        """
-        await ctx.send(help_message)
+    @commands.command(name="help", help="Return all the possible commands")
+    async def help(self, ctx):
+        help_message = discord.Embed(
+    description="""**!p:** Plays the song with search keyword following the command\n
+    **!pn:** Moves the song to the top of the queue\n
+    **!pause**: Pause the currently playing song\n
+    **!resume**: Resume the currently playing song\n
+    **!q:** Shows the music added in list/queue\n
+    **!cq**: Clears the queue\n
+    **!s:** Skips the currently playing music\n
+    **!r:** removes song from queue at index given\n
+    **!l:** Commands the bot to leave the voice channel\n
+    **!help:** shows all the commands of the bot"""
+)
+        await ctx.send(embed=help_message)
