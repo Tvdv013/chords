@@ -9,7 +9,7 @@ load_dotenv()
 intents = discord.Intents.default()
 intents.members = True
 
-bot = commands.Bot(command_prefix='_', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
 bot.remove_command('help')
 bot.add_cog(Music(bot))
 

@@ -242,19 +242,3 @@ class Music(commands.Cog):
         **!h**, **!help:** shows all the commands of the bot"""
 )
         await ctx.send(embed=help_message)
-
-    @commands.command(name="help", help="Return all the possible commands")
-    async def help(self, ctx):
-        help_message = discord.Embed(
-    description="""**!p:** Plays the song with search keyword following the command\n
-    **!pn:** Moves the song to the top of the queue\n
-    **!pause**: Pause the currently playing song\n
-    **!resume**: Resume the currently playing song\n
-    **!q:** Shows the music added in list/queue\n
-    **!cq**: Clears the queue\n
-    **!s:** Skips the currently playing music\n
-    **!r:** removes song from queue at index given\n
-    **!l:** Commands the bot to leave the voice channel\n
-    **!help:** shows all the commands of the bot"""
-)
-        await ctx.send(embed=help_message)
