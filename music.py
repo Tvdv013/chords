@@ -233,7 +233,7 @@ class Music(commands.Cog):
         **!pause:** Pause the currently playing song\n
         **!resume:** Resume the currently playing song\n
         **!q**, **!queue:** Shows the music added in list/queue\n
-        **!cq**, !clear:** Clears the entire queue of songs\n
+        **!cq**, **!clear:** Clears the entire queue of songs\n
         **!shuffle:** Shuffles the entire queue of songs\n
         **!s**, **!skip:** Skips the currently playing music\n
         **!r**, **!remove:** removes song from queue at index given\n
