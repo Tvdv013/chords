@@ -228,7 +228,7 @@ class Music(commands.Cog):
     @commands.command(name="patat", help="Send sticker")
     async def patat(self, ctx):
         patat_message = discord.Embed()
-        e.set_image(url="https://media.discordapp.net/stickers/890626501656072303.png?size=4096")
+        patat_message.set_image(url="https://media.discordapp.net/stickers/890626501656072303.png?size=4096")
         await ctx.send(embed=patat_message)
 
     @commands.command(name="help", help="Return all the possible commands", aliases=['h'])
