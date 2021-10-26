@@ -225,6 +225,12 @@ class Music(commands.Cog):
             await ctx.send(f""":x: Song {query} removed from queue by {ctx.author.mention}""")
             self.music_queue.pop(index)
 
+    @commands.command(name="patat", help="Send sticker")
+    async def patat(self, ctx):
+        patat_message = discord.Embed()
+        e.set_image(url="https://media.discordapp.net/stickers/890626501656072303.png?size=4096")
+        await ctx.send(embed=patat_message)
+
     @commands.command(name="help", help="Return all the possible commands", aliases=['h'])
     async def help(self, ctx):
         help_message = discord.Embed(
